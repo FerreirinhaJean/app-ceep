@@ -7,17 +7,30 @@ import kotlinx.coroutines.flow.Flow
 
 class NotaRepository(
     private val dao: NotaDao,
-    private  val webClient: NotaWebClient
+    private val webClient: NotaWebClient
 ) {
 
     fun getAll(): Flow<List<Nota>> {
         return dao.buscaTodas()
     }
 
-    suspend fun updateAll(){
-        webClient.getAll()?.let {notas ->
+    suspend fun updateAll() {
+        webClient.getAll()?.let { notas ->
             dao.salva(notas)
         }
+    }
+
+    fun buscaPorId(id: String): Flow<Nota> {
+        return dao.buscaPorId(id)
+    }
+
+    suspend fun remove(id: String) {
+        dao.remove(id)
+    }
+
+    suspend fun salva(nota: Nota) {
+        dao.salva(nota)
+        webClient.salva(nota)
     }
 
 }
