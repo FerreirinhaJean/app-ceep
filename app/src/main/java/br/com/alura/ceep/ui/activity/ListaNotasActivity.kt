@@ -55,7 +55,7 @@ class ListaNotasActivity : AppCompatActivity() {
     }
 
     private suspend fun atualizaTodas() {
-        repositoryNota.updateAll()
+        repositoryNota.sincroniza()
     }
 
     private fun retrofitSemCoroutine() {
