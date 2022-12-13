@@ -15,12 +15,15 @@ interface NotaDao {
     suspend fun salva(note: Nota)
 
     @Query("SELECT * FROM Nota")
-    fun buscaTodas() : Flow<List<Nota>>
+    fun buscaTodas(): Flow<List<Nota>>
 
     @Query("SELECT * FROM Nota WHERE id = :id")
     fun buscaPorId(id: Long): Flow<Nota>
 
     @Query("DELETE FROM Nota WHERE id = :id")
     suspend fun remove(id: Long)
+
+    @Insert
+    suspend fun salva(note: List<Nota>)
 
 }

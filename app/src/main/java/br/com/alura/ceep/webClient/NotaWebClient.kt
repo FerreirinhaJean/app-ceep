@@ -6,11 +6,12 @@ import br.com.alura.ceep.model.Nota
 class NotaWebClient {
 
     suspend fun getAll(): List<Nota>? {
-        val listaResposta = AppRetrofit().notaService.getAllNotesCoroutines()
-        val notas = listaResposta.body()?.map { notasRespostas ->
-            notasRespostas.nota
+        return try {
+            val listaResposta = AppRetrofit().notaService.getAllNotesCoroutines()
+            listaResposta.body()?.map { notasRespostas -> notasRespostas.nota }
+        } catch (e: Exception) {
+            null
         }
-        return notas
     }
 
 }
